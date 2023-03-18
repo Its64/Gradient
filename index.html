@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js" integrity="sha512-zInFF17qBFVvvvFpIfeBzo7Tj7+rQxLeTJDmbxjBz5/zIr89YVbTNelNhdTT+/DCrxoVzBeUPVFJsczKbB7sew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <div id="app" class="w-full h-screen text-4xl text-white font-bold flex justify-center items-center self-center transition duration-200 ease-in-out">
+    <h1 id="code" title="copy to clipboard" onclick="clipboard()" class="hover:cursor-pointer p-3 rounded-lg bg-white bg-opacity-0 hover:bg-opacity-25 transition duration-200 ease-in-out"></h1>
+  </div>
+
+  <script>
+    let color1 = chroma.random().hex();
+    let color2 = chroma.random().hex();
+
+    function clipboard() {
+      navigator.clipboard.writeText(`linear-gradient(to bottom, ${color1}, ${color2})`)
+        .then(() => {
+          console.log('Success')
+        })
+        .catch(err => {
+          console.log('Error', err);
+        });
+    }
+
+    const app = document.querySelector("#app");
+
+    const change = () => {
+      color1 = chroma.random().hex();
+      color2 = chroma.random().hex();
+      app.style.background = `linear-gradient(to bottom, ${color1}, ${color2})`;
+      const code = app.querySelector("#code");
+      code.innerHTML = `linear-gradient(to bottom, ${color1}, ${color2})`;
+      // code.style.color = chroma(color).luminance() > 0.5? 'black' : 'white';
+    }
+
+    change()
+
+    document.addEventListener("keydown", change);
+  </script>
+</body>
+</html>
